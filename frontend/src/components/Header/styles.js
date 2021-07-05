@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
 export const Nav = styled.div`
-  background: black;
+  background: transparent;
   width: 100vw;
   height: 80px;
   display: flex;
@@ -37,14 +37,20 @@ export const Bars = styled(FaBars)`
     right: 0;
     transform: translate(-100%, 75%);
     font-size: 1.8rem;
+    z-index: 1000;
   }
 `;
 
 export const NavMenu = styled.div`
   display: flex;
-
   @media screen and (max-width: 768px) {
-    display: none;
+    a {
+      color: black;
+    }
+    width: 100%;
+    height: 40%;
+    align-items: center;
+    flex-direction: column;
   }
 `;
 
@@ -53,8 +59,23 @@ export const NavBtn = styled.div`
   display: flex;
   align-items: center;
   margin-right: 24px;
-
   @media screen and (max-width: 768px) {
-    display: none;
+    margin-right: 0;
+  }
+`;
+
+export const Menu = styled.div`
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    position: absolute;
+    flex-direction: column;
+    width: 100%;
+    height: 80vh;
+    top: 0;
+    align-items: center;
+    justify-content: space-evenly;
   }
 `;
