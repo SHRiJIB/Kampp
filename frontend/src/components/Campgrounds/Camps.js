@@ -16,7 +16,7 @@ const Camps = () => {
   return (
     <>
       <CampgroundContainer>
-        <Heading>Heading</Heading>
+        <Heading>Find Your Next Gateway</Heading>
         <Wrapper>
           {CAMPS.map((camp, index) => (
             <CampCard key={index}>
