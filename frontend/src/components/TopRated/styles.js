@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { animated } from "react-spring";
 export const TopratedContainer = styled.div`
   width: 100%;
   background: #fcfcfc;
@@ -25,7 +25,7 @@ export const ColumnOne = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr;
 `;
-export const Review = styled.div`
+export const Review = styled(animated.div)`
   padding-top: 1rem;
   padding-right: 2rem;
 
@@ -40,7 +40,7 @@ export const Review = styled.div`
   }
 `;
 
-export const ColumnTwo = styled.div`
+export const ColumnTwo = styled(animated.div)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;

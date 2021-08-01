@@ -1,4 +1,5 @@
 import React from "react";
+import { useSpring } from "react-spring";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { FaRegLightbulb } from "react-icons/fa";
 import {
@@ -12,12 +13,22 @@ import {
 } from "./styles";
 
 const TopRated = () => {
+  const ColumnAnimation = useSpring({
+    to: { opacity: 1, y: 0 },
+    from: { opacity: 0, y: 200 },
+  });
+
+  const ReviewAnimation = useSpring({
+    to: { opacity: 1, x: 0 },
+    from: { opacity: 0, x: -200 },
+  });
+
   return (
     <TopratedContainer>
       <Heading>Our Top Rated Campgrounds.</Heading>
       <Container>
         <ColumnOne>
-          <Review>
+          <Review style={ReviewAnimation}>
             <IoMdCheckmarkCircleOutline
               style={{
                 color: " #f9b19b",
@@ -31,7 +42,7 @@ const TopRated = () => {
               Voluptate, laborum.
             </p>
           </Review>
-          <Review>
+          <Review style={ReviewAnimation}>
             <FaRegLightbulb
               style={{
                 color: " #3fffa8",
@@ -46,7 +57,7 @@ const TopRated = () => {
             </p>
           </Review>
         </ColumnOne>
-        <ColumnTwo>
+        <ColumnTwo style={ColumnAnimation}>
           <Img src="./assets/images/camp-1.jpg" />
           <Img src="./assets/images/camp-2.jpg" />
         </ColumnTwo>

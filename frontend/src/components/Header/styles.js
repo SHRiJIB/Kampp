@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 export const Nav = styled.div`
   background: transparent;
@@ -41,11 +42,27 @@ export const Bars = styled(FaBars)`
   }
 `;
 
+export const Cross = styled(ImCross)`
+  color: #fff;
+  display: none;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 75%);
+    font-size: 1.8rem;
+    z-index: 1000;
+  }
+`;
+
 export const NavMenu = styled.div`
   display: flex;
   @media screen and (max-width: 768px) {
     a {
-      color: black;
+      color: white;
     }
     width: 100%;
     height: 40%;
@@ -70,6 +87,8 @@ export const Menu = styled.div`
   justify-content: space-between;
   @media screen and (max-width: 768px) {
     display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    background: #000;
+
     position: absolute;
     flex-direction: column;
     width: 100%;

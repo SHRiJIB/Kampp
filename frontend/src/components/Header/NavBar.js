@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Nav, NavLink, Bars, NavMenu, NavBtn, Menu } from "./styles";
+import { Nav, NavLink, Bars, NavMenu, NavBtn, Menu, Cross } from "./styles";
 import { MenuItems } from "../../data/MenuItem";
 import { Button } from "../Button/Button";
 const NavBar = () => {
@@ -9,7 +9,12 @@ const NavBar = () => {
       <NavLink brand="true" to="/">
         Kamp
       </NavLink>
-      <Bars onClick={() => setIsOpen((prev) => !prev)} />
+      {isOpen ? (
+        <Cross onClick={() => setIsOpen((prev) => !prev)} />
+      ) : (
+        <Bars onClick={() => setIsOpen((prev) => !prev)} />
+      )}
+
       <Menu isOpen={isOpen}>
         <NavMenu>
           {MenuItems.map((item, index) => (
