@@ -1,26 +1,11 @@
-const express = require('express')
-const router = express.Router()
-const catchAsync = require('../utils/catchAsyncError.js')
+const express = require("express");
+const router = express.Router();
+const catchAsync = require("../utils/catchAsyncError.js");
 
-const {
-  registerNewUser,
-  login,
-  logout,
-  authenticateUser,
-} = require('../controllers/auth.js')
+const { registerNewUser, login } = require("../controllers/auth.js");
 
-router.get('/register', (req, res) => {
-  res.render('auth/register')
-})
+router.post("/register", catchAsync(registerNewUser));
 
-router.post('/register', catchAsync(registerNewUser))
+router.post("/login", catchAsync(login));
 
-router.get('/login', (req, res) => {
-  res.render('auth/login')
-})
-
-router.post('/login', authenticateUser, login)
-
-router.get('/logout', logout)
-
-module.exports = router
+module.exports = router;

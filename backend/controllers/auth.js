@@ -1,41 +1,63 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user.js");
-const passport = require("passport");
 
 const registerNewUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const user = new User({ email, username });
-    const registeredUser = await User.register(user, password);
-    req.login(registeredUser, (err) => {
-      if (err) {
-        next(err);
-      }
+    try {
+      const existigUser = await User.findOne({ email });
+      if (existigUser)
+        return res
+          .status(400)
+          .json({ message: "User with this email already exists." });
 
-      req.flash("success", "Welcome to YelpCamp!!!");
-      res.redirect("/campgrounds");
-    });
+      const hashedPassword = await bcrypt.hash(password, 12);
+
+      const result = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+      });
+      const token = jwt.sign({ email: result.email, id: result._id }, "test", {
+        expiresIn: "1h",
+      });
+
+      res.status(200).json({ result, token });
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong." });
+    }
   } catch (error) {
-    req.flash("error", error.message);
-    res.redirect("/auth/register");
+    res.status(500).json({ message: "Something went wrong." });
   }
 };
 
-const login = (req, res) => {
-  req.flash("success", `Welcome back!! ${req.body.username}`);
-  const redirectUrl = req.session.returnTo || "/campgrounds";
-  delete req.session.returnTo;
-  res.redirect(redirectUrl);
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existigUser = await User.findOne({ email });
+
+    if (!existigUser)
+      return res.status(404).jsoon({ message: "User doesn't exists." });
+
+    const correctPassword = await bcrypt.compare(
+      password,
+      existigUser.password
+    );
+
+    if (!correctPassword)
+      return res.status(400).json({ message: "Password is not correct." });
+
+    const token = jwt.sign(
+      { email: existigUser.email, id: existigUser._id },
+      "test",
+      { expiresIn: "1h" }
+    );
+    res.status(200).json({ result: existigUser, token });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong." });
+  }
 };
 
-const logout = (req, res) => {
-  req.logout();
-  res.locals.currentUser = null;
-  req.flash("success", "Good Bye 👋👋");
-  res.redirect("/campgrounds");
-};
-
-const authenticateUser = passport.authenticate("local", {
-  failureFlash: true,
-  failureRedirect: "/auth/login",
-});
-module.exports = { registerNewUser, login, logout, authenticateUser };
+module.exports = { registerNewUser, login };
