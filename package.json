@@ -1,0 +1,23 @@
+{
+  "name": "kamp",
+  "version": "1.0.0",
+  "description": "root",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHRiJIB/Kampp.git"
+  },
+  "author": "Shreejeeb Kesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SHRiJIB/Kampp/issues"
+  },
+  "homepage": "https://github.com/SHRiJIB/Kampp#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-plugin-react": "^7.24.0"
+  }
+}

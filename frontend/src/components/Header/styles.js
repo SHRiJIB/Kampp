@@ -22,7 +22,6 @@ export const NavLink = styled(Link)`
   text-decoration: none;
   height: 100%;
   cursor: pointer;
-
   font-size: ${({ brand }) => (brand ? "24px" : "inherit")};
 `;
 
@@ -88,7 +87,6 @@ export const Menu = styled.div`
   @media screen and (max-width: 768px) {
     display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
     background: #000;
-
     position: absolute;
     flex-direction: column;
     width: 100%;
