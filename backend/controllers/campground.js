@@ -4,30 +4,53 @@ const { cloudinary } = require("../cloudinary");
 const mbxToken = process.env.MAPBOX;
 const geoCoder = geoCoding({ accessToken: mbxToken });
 
-//get all campgrounds
+// @desc Fetch campgrounds
+// @routes GET /campgrounds
+// @access Public
+
 const getAllCamps = async (req, res) => {
-  const campgrounds = await Campground.find({});
-  res.status(200).json(campgrounds);
+  const pageSize = 10;
+  const pageNumber = Number(req.query.pageNumber) || 1;
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+  // const campgrounds = await Campground.find({});
+  const count = await Campground.countDocuments({ ...keyword });
+  const campgrounds = await Campground.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (pageNumber - 1));
+  res
+    .status(200)
+    .json({ campgrounds, pageNumber, pages: Math.ceil(count / pageSize) });
 };
 
-//get a campground by id
+// @desc Fetch a campground by ID
+// @routes GET /campgrounds/:id
+// @access Public
 const getCampById = async (req, res) => {
   const { id } = req.params;
   const camp = await Campground.findById(id)
     .populate({
       path: "reviews",
       populate: {
-        path: "author",
+        path: "owner",
       },
     })
-    .populate("author");
+    .populate("owner");
   if (!camp) {
     return res.status(404).json({ error: "Campground not found." });
   }
   res.status(200).json(camp);
 };
+// @desc Add a new campground
+// @routes POST /campgrounds/new
+// @access Public
 
-//add new camp
 const addNewCamp = async (req, res) => {
   const geoData = await geoCoder
     .forwardGeocode({
@@ -45,12 +68,13 @@ const addNewCamp = async (req, res) => {
     filename: f.filename,
   }));
   console.log(campground);
-  campground.author = req.user._id;
+  campground.owner = req.user._id;
   await campground.save();
   res.status(201).json(campground);
 };
-
-//edit a campground
+// @desc Edit campground
+// @routes GET /campgrounds/:id/edit
+// @access Public
 const editCampground = async (req, res) => {
   const { id } = req.params;
   const camp = await Campground.findById(id);
@@ -60,7 +84,10 @@ const editCampground = async (req, res) => {
   res.status(200).json(camp);
 };
 
-//update a campground
+// @desc Update a campground
+// @routes PATCH /campgrounds/:id
+// @access Public
+
 const updateCamp = async (req, res) => {
   const { id } = req.params;
   const { campground } = req.body;

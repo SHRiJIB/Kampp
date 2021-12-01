@@ -11,7 +11,7 @@ ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_100");
 });
 
-const opts = { toJSON: { virtuals: true } };
+const options = { toJSON: { virtuals: true } };
 const CampgroundSchema = new Schema(
   {
     title: String,
@@ -30,7 +30,7 @@ const CampgroundSchema = new Schema(
         required: true,
       },
     },
-    author: {
+    owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
@@ -41,7 +41,7 @@ const CampgroundSchema = new Schema(
       },
     ],
   },
-  opts
+  options
 );
 
 CampgroundSchema.virtual("properties.popup").get(function () {
