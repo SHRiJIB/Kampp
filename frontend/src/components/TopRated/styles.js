@@ -6,6 +6,7 @@ export const TopratedContainer = styled.div`
   color: #000;
   padding: 5rem calc((100vw - 1300px) / 2);
 `;
+
 export const Heading = styled.div`
   color: #077bf1;
   font-size: 2rem;
