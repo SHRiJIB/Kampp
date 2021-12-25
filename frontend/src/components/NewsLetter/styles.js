@@ -46,7 +46,7 @@ export const FormWrap = styled.div`
     border: none;
   }
 
-  @media screen and (max-width: 368px) {
+  @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
     padding: 0.1rem;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const FooterContainer = styled.div`
-  padding: 5rem calc((100vw - 1100px) / 2);
+  padding: 5rem calc((100vw - 1100px) / 2) 3rem calc((100vw - 1100px) / 2);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   color: #000;
