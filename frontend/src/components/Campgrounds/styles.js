@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
 export const CampCard = styled.div`
   line-height: 2;
   width: 100%;
-  height: 500px;
+  height: 400px;
   position: relative;
   border-radius: 10px;
   transition: 0.2s ease;
@@ -58,7 +58,7 @@ export const TextWrap = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  top: 375px;
+  top: 275px;
 `;
 export const CampTitle = styled.div`
   font-weight: 400;

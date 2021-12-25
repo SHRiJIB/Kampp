@@ -32,7 +32,7 @@ const Camps = () => {
                   round="true"
                   style={{
                     position: "absolute",
-                    top: "420px",
+                    top: "320px",
                     fontSize: "14px",
                   }}
                 >
