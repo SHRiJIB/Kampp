@@ -2,7 +2,7 @@ import { Box, styled, TextField } from "@mui/material";
 
 export const Container = styled(Box)`
   padding: 5rem;
-  height: calc(100vh - 340px - 80px);
+  min-height: calc(100vh - 340px - 80px);
   margin-bottom: 25px;
 `;
 export const Form = styled(Box)`

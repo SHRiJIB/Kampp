@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Link as MUILink, Typography } from "@mui/material";
 
 import { useState } from "react";
 import { Container, Form, TextInput } from "./styles";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [loginInfo, setLogInfo] = useState({
@@ -42,6 +43,12 @@ const Login = () => {
           <Button variant="contained" color="primary" size="large" fullWidth>
             Login
           </Button>
+
+          <Box>
+            <MUILink component={Link} to="/signup">
+              Don't hava an account?
+            </MUILink>
+          </Box>
         </Box>
       </Form>
     </Container>
