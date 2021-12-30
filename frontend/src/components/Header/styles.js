@@ -4,7 +4,7 @@ import { FaBars } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
 export const Nav = styled.div`
-  background: transparent;
+  background: ${({ isHome }) => (isHome ? "transparent" : "#fabcde")};
   max-width: 100vw;
   height: 80px;
   display: flex;

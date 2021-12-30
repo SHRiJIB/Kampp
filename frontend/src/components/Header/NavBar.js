@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtn, Menu, Cross } from "./styles";
 import { MenuItems } from "../../data/MenuItem";
 import { Button } from "../Button/Button";
+import { useLocation } from "react-router-dom";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
   return (
-    <Nav>
+    <Nav isHome={location.pathname === "/"}>
       <NavLink brand="true" to="/">
         Kamp
       </NavLink>
@@ -23,11 +25,13 @@ const NavBar = () => {
             </NavLink>
           ))}
         </NavMenu>
-        <NavBtn>
-          <Button primary="true" round="true" to="/login">
-            Login
-          </Button>
-        </NavBtn>
+        {location.pathname === "/" && (
+          <NavBtn>
+            <Button primary="true" round="true" to="/login">
+              Login
+            </Button>
+          </NavBtn>
+        )}
       </Menu>
     </Nav>
   );
