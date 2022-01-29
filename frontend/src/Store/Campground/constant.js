@@ -1,0 +1,5 @@
+export const TYPES = {
+  ADD: "ADD_CAMPGROUND",
+  DELETE: "DELETE_CAMPGROUND",
+  EDIT: "EDIT_CAMPGROUND",
+};
